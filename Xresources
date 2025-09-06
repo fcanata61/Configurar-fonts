@@ -1,0 +1,130 @@
+###############################################################################
+# .Xresources Maximalista para xterm e urxvt
+# Funcionalidades: dois temas (escuro e claro), ligaduras, Powerline, transparência,
+# scrollback longo, Perl extensions, atalhos completos
+###############################################################################
+
+#############################
+# 1. Fontes
+#############################
+xterm*faceName: Fira Code
+xterm*faceSize: 12
+URxvt.font: xft:Fira Code:size=12:antialias=true:hinting=true
+URxvt.boldFont: xft:Fira Code:style=Bold:size=12
+
+#############################
+# 2. Cursor
+#############################
+xterm*cursorColor: "#fabd2f"
+xterm*cursorBlink: true
+URxvt.cursorBlink: true
+URxvt.cursorColor: "#fabd2f"
+URxvt.cursorUnderline: false
+
+#############################
+# 3. Scrollback e buffer
+#############################
+xterm*saveLines: 10000
+URxvt.scrollBar: false
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.saveLines: 10000
+
+#############################
+# 4. Transparência e shading
+#############################
+URxvt.transparent: true
+URxvt.shading: 20   ! 0=total transparente, 100=opaco
+
+#############################
+# 5. Temas
+#############################
+! Tema escuro (gruvbox)
+URxvt.color0:  #282828
+URxvt.color1:  #cc241d
+URxvt.color2:  #98971a
+URxvt.color3:  #d79921
+URxvt.color4:  #458588
+URxvt.color5:  #b16286
+URxvt.color6:  #689d6a
+URxvt.color7:  #a89984
+URxvt.color8:  #928374
+URxvt.color9:  #fb4934
+URxvt.color10: #b8bb26
+URxvt.color11: #fabd2f
+URxvt.color12: #83a598
+URxvt.color13: #d3869b
+URxvt.color14: #8ec07c
+URxvt.color15: #ebdbb2
+URxvt.background: #282828
+URxvt.foreground: #ebdbb2
+
+! Tema claro (Solarized Light, pode alternar manual ou via script)
+!URxvt.color0:  #eee8d5
+!URxvt.color1:  #dc322f
+!URxvt.color2:  #859900
+!URxvt.color3:  #b58900
+!URxvt.color4:  #268bd2
+!URxvt.color5:  #d33682
+!URxvt.color6:  #2aa198
+!URxvt.color7:  #657b83
+!URxvt.color8:  #eee8d5
+!URxvt.color9:  #dc322f
+!URxvt.color10: #859900
+!URxvt.color11: #b58900
+!URxvt.color12: #268bd2
+!URxvt.color13: #d33682
+!URxvt.color14: #2aa198
+!URxvt.color15: #657b83
+!URxvt.background: #fdf6e3
+!URxvt.foreground: #657b83
+
+#############################
+# 6. Perl extensions para urxvt
+#############################
+URxvt.perl-ext-common: default,matcher,clipboard
+URxvt.perl-ext: default,matcher,clipboard
+
+! URL matcher clicável
+URxvt.matcher.pattern.0: (https?://[^\s]+)
+URxvt.matcher.button: 1
+
+#############################
+# 7. Teclas e atalhos
+#############################
+! Scroll com Shift+Setas
+URxvt.keysym.S-Up: \033[1;2A
+URxvt.keysym.S-Down: \033[1;2B
+
+! Ctrl+Shift+C/V copiar/colar
+xterm*VT100.Translations: #override \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+URxvt.keysym.M-C-c: eval:selection_to_clipboard
+URxvt.keysym.M-C-v: eval:paste_clipboard
+
+! Alternar transparência (toggle)
+URxvt.keysym.M-C-t: perl:clipboard:toggle
+
+! Alternar temas (pode ser script externo para mudar cores)
+URxvt.keysym.M-C-f: eval:next_color_scheme
+
+#############################
+# 8. Bordas e comportamento
+#############################
+URxvt.internalBorder: 5
+URxvt.urgentOnBell: true
+xterm*visualBell: true
+URxvt.scrollBar: false
+
+#############################
+# 9. Recursos Powerline e ligaduras
+#############################
+! A fonte Fira Code já habilita ligaduras
+! Para powerline, usar Fira Code patched ou Noto Mono for Powerline
+! Não é necessário configuração extra, apenas font correta
+
+###############################################################################
+# Fim do .Xresources Maximalista
+###############################################################################
