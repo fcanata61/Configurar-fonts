@@ -1,0 +1,112 @@
+###############################################################################
+# Configuração de Fonts no Linux sem DE e sem Display Manager
+# Autor: Gerado por ChatGPT
+# Objetivo: Configurar fontes corretamente para console, Xorg e terminais
+###############################################################################
+
+#############################
+# 1. Fontes no console (tty)
+#############################
+
+# a) Listar fontes disponíveis
+ls /usr/share/kbd/consolefonts/
+
+# b) Trocar fonte temporariamente
+setfont lat9w-16   # exemplo de fonte
+
+# c) Fonte permanente (Gentoo / OpenRC)
+sudo nano /etc/conf.d/consolefont
+
+# Defina a fonte desejada:
+CONSOLEFONT="lat9w-16"
+
+# Reiniciar serviço
+sudo /etc/init.d/consolefont restart
+
+# Nota: outras fontes populares: ter-112n.psf.gz, sun12x22.psf.gz
+
+#############################
+# 2. Fontes para Xorg (sem DE)
+#############################
+
+# a) Instalar pacotes de fontes
+sudo emerge x11-fonts/terminus-font x11-fonts/misc-fixed x11-fonts/dejavu x11-fonts/ttf-dejavu
+
+# b) Configurar fontes padrão para X
+sudo mkdir -p /etc/X11/xorg.conf.d/
+sudo nano /etc/X11/xorg.conf.d/10-fonts.conf
+
+# Exemplo de conteúdo:
+Section "Files"
+    FontPath "/usr/share/fonts/misc/"
+    FontPath "/usr/share/fonts/terminus/"
+    FontPath "/usr/share/fonts/dejavu/"
+EndSection
+
+# c) Configurar fontes para terminais X
+# Para xterm:
+nano ~/.Xresources
+# Adicione:
+XTerm*faceName: Terminus
+XTerm*faceSize: 12
+
+# Para urxvt (rxvt-unicode):
+nano ~/.Xresources
+# Adicione:
+URxvt.font: xft:DejaVu Sans Mono:size=12
+
+# Carregar mudanças
+xrdb ~/.Xresources
+
+#############################
+# 3. Fontes para aplicativos CLI
+#############################
+
+# Aplicativos como vim, tmux, htop usam fontes monoespaçadas
+# Use fontes como:
+# - Terminus
+# - DejaVu Sans Mono
+# - Fira Code
+
+#############################
+# 4. Fontes X avançadas
+#############################
+
+# a) Listar todas as fontes instaladas
+fc-list
+
+# b) Definir fonte padrão para aplicações X
+sudo nano /etc/fonts/local.conf
+
+# Exemplo de conteúdo:
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <match>
+    <test name="family" qual="any">
+      <string>monospace</string>
+    </test>
+    <edit name="family" mode="assign" binding="same">
+      <string>DejaVu Sans Mono</string>
+    </edit>
+  </match>
+</fontconfig>
+
+# c) Atualizar cache de fontes
+fc-cache -fv
+
+#############################
+# 5. Dicas finais
+#############################
+
+# - Use sempre fontes monoespaçadas para terminal
+# - Para console: escolha uma fonte legível de tamanho médio
+# - Para X: configure .Xresources para cada terminal
+# - Para aplicativos CLI: verifique suporte à fonte monoespaçada
+# - Reinicie X ou reabra terminais após alterar fontes
+# - Para terminais virtuais, use 'setfont' ou configure /etc/conf.d/consolefont
+# - Pacotes como x11-fonts/terminus-font ou ttf-dejavu são amplamente compatíveis
+
+###############################################################################
+# Fim do Guia de Configuração de Fonts no Linux sem DE
+###############################################################################
